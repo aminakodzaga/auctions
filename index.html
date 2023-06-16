@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Auctions.ba</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+  <link href="css/index.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+</head>
+
+<body>
+  <header>
+    
+    <nav class="navbar navbar-expand-lg navbar-secondary bg-element">
+      <!-- Container wrapper -->
+      <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand ms-5" href="#">
+          <img
+            src="img/logo.png"
+            height="75"
+            alt="Logo"
+            loading="lazy"
+            style="margin-top: -5px;"
+          />
+        </a>
+    
+          <!-- Left links -->
+          <ul class="nav justify-content-center">
+            <li class="nav-item px-2">
+              <button class="btn btn-primary text-light"> <span class="icon-bank"></span>Dashboard</button>
+            </li>
+            <li class="nav-item px-2">
+              <button class="btn btn-primary text-light" onclick="location.href='items.html'"><span class="icon-navicon"></span>  My items</button>
+            </li>
+          </ul>
+          <!-- Right links -->
+    
+          <div class="d-flex align-items-center">
+            <button class="btn btn-primary text-light" href="#" onclick="userService.logout()">
+              <span class="icon-exit_to_app"></span>
+              Logout
+            </button>
+          </div>
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+  </header>
+
+  <main>
+    <div class="text-center mt-5 text-light">
+      <h1>Welcome! It's time to bid.</h1>
+      <div class="container marketing" style="margin-top:50px;">
+        <div id="item-list" class="row">
+          <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+          </div>
+        </div><!-- /.row -->
+      </div>
+    </div>
+  </main>
+</body>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="js/MainService.js"></script>
+<script src="js/user-service.js"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content rounded-0">
+      <div class="modal-body py-0">
+
+        <div class="d-flex main-content" style="min-height: 450px;">
+          <div class="bg-image promo-img mr-3 w-100" id="dataImage" style=" background-size: contain; background-repeat: no-repeat; background-position: center; ">
+            <span class="discount" id="modalDate" datetime=""></span>
+          </div>
+          <div class="content-text p-4 px-5 align-item-stretch w-75">
+            <div class="text-center">
+                <a onclick="$('#exampleModalCenter').modal('hide');" class="share"><span class="icon-reply"></span></a>
+                <h3 class="mb-3 line" id="dataTitle">Grand Prix 4000</h3>
+                <p class="mb-3">
+                    <span class="icon-info"></span>
+
+                </p>
+
+                <p class="mb-3" id="dataDescription"  style="word-wrap: break-word;">All their equipment and instruments are alive. The sky was this is cloudless and of a deep dark blue. A shining crescent far beneath the flying vessel.</p>
+                <hr>
+                <div class="sr-only w-100 text-center" id="modalText" value="-1">
+                  <div class="spinner-border" role="status">
+                  </div>
+                </div>
+                <div class="d-flex w-100">
+                  <form class="form-inline" id="bidform">
+                    <div class="input-group mb-2 mr-sm-2" id="bid">
+
+                      <span class="icon-money d-flex align-items-center" id="money" style="margin-top:-0.5rem"></span>
+                        
+                      <input type="text" name="amount" class="form-control mb-2 mx-1" id="bidAmount" placeholder="Enter bid amount">
+
+                      <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                  </form>
+                </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  var token = localStorage.getItem("token");
+  if (token){
+    MainService.init();
+  }else{
+    window.location.replace("login.html");
+  }
+</script>
+
+</html>

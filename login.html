@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <title>Auctions.ba</title>
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body class="text-center">
+    
+        <main class="form-signin">
+          <form id = "signinForm">
+            <img src="img/logo.png" alt="" width="150" height="150">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        
+            <div class="form-floating">
+              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
+              <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+              <input type="password" class="form-control" id="floatingLoginPassword" placeholder="Password" name="password">
+              <label for="floatingPassword">Password</label>
+            </div>
+        
+            <button class="w-100 btn btn-lg btn-primary" id="submit" type="submit" name="submiter">Sign in</button>
+            
+          </form>
+          <button class="btn" data-bs-toggle="modal" data-bs-target="#register" style="color:#fff">No account?</button>
+          <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+        </main>
+        
+        
+            
+    </body>
+
+    <!-- Add Modal -->
+    <div class="modal fade" id="register" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content ">
+            <form id="registerForm">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registration</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control required" id="floatingUserNameInput" name="username">
+                    <label for="floatingInput">Username</label>
+                </div>
+
+                <div class="ml-1 form-floating mb-3">
+                    <input type="text" class="form-control required" id="floatingFirstNameInput" name="firstname">
+                    <label for="floatingInput">First name</label>
+                </div>
+            
+                <div class="ml-1 form-floating mb-3">
+                    <input type="text" class="form-control required" id="floatingSecondNameInput" name="secondname">
+                    <label for="floatingInput">Second name</label>
+                </div>
+
+                <div class="ml-1 form-floating mb-3">
+                    <input type="email" class="form-control required" id="floatingEmailInput" name="email">
+                    <label for="floatingInput">Email address</label>
+                </div>
+                
+                <div class="ml-1 form-floating">
+                    <input type="password" class="form-control required" id="floatingPassword"name="password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="js/user-service.js"></script>
+    <script type="text/javascript">
+      userService.init();
+    </script>
+</html>

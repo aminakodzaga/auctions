@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Auctions.ba</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+  <link href="css/index.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+</head>
+
+<body>
+  <header>
+    
+<nav class="navbar navbar-expand-lg navbar-secondary bg-element">
+  <!-- Container wrapper -->
+  <div class="container">
+    
+    <!-- Navbar brand -->
+    <a class="navbar-brand ms-5" href="#">
+      <img
+        src="img/logo.png"
+        height="75"
+        alt="Logo"
+        loading="lazy"
+        style="margin-top: -5px;"
+      />
+    </a>
+    
+    <ul class="nav justify-content-center">
+      <li class="nav-item px-2">
+        <button class="btn btn-primary text-light" onclick="location.href='index.html'"><span class="icon-bank"></span>  Dashboard</button>
+      </li>
+      <li class="nav-item px-2">
+        <button class="btn btn-primary text-light" onclick=""><span class="icon-navicon"></span>  My items</button>
+      </li>
+      <li class="nav-item px-2">
+        <button class="btn btn-primary text-light" onclick="itemService.add()"> <span class="icon-add"></span> Add Item</button>
+      </li>
+    </ul>
+    <!-- Right links -->
+
+    <div class="d-flex align-items-center">
+      <button class="btn btn-primary text-light" href="#" onclick="userService.logout()">
+        <span class="icon-exit_to_app"></span>
+        Logout
+      </button>
+    </div>
+  </div>
+  <!-- Container wrapper -->
+</nav>
+  </header>
+
+  <main>
+    <div class="text-center mt-5 text-light">
+      <h1>Your items</h1>
+      <div class="container marketing" style="margin-top:50px;">
+        <div id="item-list" class="row">
+          <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+          </div>
+        </div><!-- /.row -->
+      </div>
+    </div>
+  </main>
+</body>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+
+<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="js/useritems.js"></script>
+<script src="js/user-service.js"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content rounded-0">
+      <div class="modal-body py-0">
+        
+        <div class="d-flex main-content">
+          <div class="bg-image promo-img mr-3 w-100" id="dataImage" style=" background-size: contain; background-repeat: no-repeat; background-position: center; min-height: 300px;">
+            <span class="discount" id="modalDate" datetime=""></span>
+          </div>
+          <div class="content-text p-4 px-5 align-item-stretch w-75">
+            <div class="text-center">
+                <a onclick="$('#exampleModalCenter').modal('hide')" class="share"><span class="icon-reply"></span></a>
+                <h3 class="mb-3 line" id="dataTitle">Grand Prix 4000</h3>
+                <p class="mb-3">
+                    <span class="icon-info"></span>
+
+                </p>
+
+                <p class="mb-3" id="dataDescription" style="word-wrap: break-word;">All their equipment and instruments are alive. The sky was this is cloudless and of a deep dark blue. A shining crescent far beneath the flying vessel.</p>
+                <div class="sr-only" id="modalText" value="-1">
+                  <div class="spinner-border" role="status"></div>
+                </div>
+                
+            </div>
+            <button class="btn btn-danger btn-sm float-end mt-5" id="delete"><span class="icon-delete_forever mb-3"></span>Delete item</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add item to auction</h5>
+        <button type="button" class="close btn-primary" data-dismiss="modal" aria-label="Close" onclick="$('#addItemModal').modal('hide')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="itemadd">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Title:</label>
+            <input type="text" class="form-control" id="recipient-name" name="title">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Description:</label>
+            <textarea class="form-control" id="message-text" name="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="image" class="col-form-label">Image:</label>
+            <input class="form-control" type="file" id="imageInput" accept="image/*" name="imageInput">
+          </div>
+          <div class="form-group">
+            <label for="image" class="col-form-label">Ending date:</label>
+            <input  class="form-control" type="datetime-local" id="start" name="ending" name="date" value="2017-06-30T16:30">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-lg btn-primary" id="submit" type="submit" name="submiter">Add item</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var token = localStorage.getItem("token");
+  if (token){
+    itemService.init();
+  }else{
+    window.location.replace("login.html");
+  }
+</script>
+
+</html>

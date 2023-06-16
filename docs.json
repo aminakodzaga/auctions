@@ -1,0 +1,365 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Auctions.ba API Specs",
+        "contact": {
+            "name": "Ajdin Hukić",
+            "email": "ajdin.hukic@stu.ibu.edu.ba"
+        },
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/auctions-ba/rest",
+            "description": "Development Environment"
+        },
+        {
+            "url": "https://keytrackedu.com/auctions-ba/rest",
+            "description": "Production Environment"
+        }
+    ],
+    "paths": {
+        "/bids/{id}": {
+            "get": {
+                "tags": [
+                    "bids"
+                ],
+                "summary": "Return all bids for item from the API.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of item",
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Fetch bids for item of that id"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/bid": {
+            "post": {
+                "tags": [
+                    "bids"
+                ],
+                "summary": "Add bid to an item",
+                "requestBody": {
+                    "description": "Basic user info",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "amount": {
+                                        "description": "Amount of bid",
+                                        "type": "integer",
+                                        "example": "123"
+                                    },
+                                    "item_id": {
+                                        "description": "Item id of the bid",
+                                        "type": "integer",
+                                        "example": "15"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success bid accepted"
+                    },
+                    "403": {
+                        "description": "Bid too low or item non existing"
+                    },
+                    "404": {
+                        "description": "Auction ended"
+                    },
+                    "500": {
+                        "description": "Bidding on own item"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/items": {
+            "get": {
+                "tags": [
+                    "items"
+                ],
+                "summary": "Return all items from the API. ",
+                "responses": {
+                    "200": {
+                        "description": "List of items."
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/items/{id}": {
+            "get": {
+                "tags": [
+                    "items"
+                ],
+                "summary": "Return item from the API. ",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of item",
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Fetch individual item"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/useritems": {
+            "get": {
+                "tags": [
+                    "items"
+                ],
+                "summary": "Return all user items from the API. ",
+                "responses": {
+                    "200": {
+                        "description": "List of items."
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/item": {
+            "post": {
+                "tags": [
+                    "items"
+                ],
+                "summary": "Adds item to auction. ",
+                "description": "Add item to auction",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "title": {
+                                                "description": "Title of item",
+                                                "type": "string",
+                                                "example": "Test"
+                                            },
+                                            "description": {
+                                                "description": "Desc of item",
+                                                "type": "string",
+                                                "example": "test"
+                                            },
+                                            "item_image": {
+                                                "description": "Item image",
+                                                "type": "string",
+                                                "format": "binary"
+                                            },
+                                            "ending": {
+                                                "description": "Ending at.",
+                                                "format": "datetime",
+                                                "example": "2022-05-18 07:50:45"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success user registered"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/item/{id}": {
+            "delete": {
+                "tags": [
+                    "items"
+                ],
+                "summary": "Delete item from the API. ",
+                "description": "Delete item and its bids from API",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Item ID",
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Item deleted"
+                    },
+                    "500": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Login to the system",
+                "requestBody": {
+                    "description": "Basic user info",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "Email",
+                                        "type": "string",
+                                        "example": "dino.keco@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "Password",
+                                        "type": "string",
+                                        "example": "1234"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "JWT Token on successful response"
+                    },
+                    "404": {
+                        "description": "Wrong Password | User doesn't exist"
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Register to the system",
+                "requestBody": {
+                    "description": "Basic user info",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "Email",
+                                        "type": "string",
+                                        "example": "dino.keco@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "Password",
+                                        "type": "string",
+                                        "example": "1234"
+                                    },
+                                    "username": {
+                                        "description": "Username",
+                                        "type": "string",
+                                        "example": "ajdin"
+                                    },
+                                    "firstname": {
+                                        "description": "Firstname",
+                                        "type": "string",
+                                        "example": "Ajdin"
+                                    },
+                                    "secondname": {
+                                        "description": "Secondname",
+                                        "type": "string",
+                                        "example": "Hukić"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success user registered"
+                    },
+                    "500": {
+                        "description": "Username or email is already registered"
+                    }
+                }
+            }
+        },
+        "/user": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Return current logged in user id. ",
+                "responses": {
+                    "200": {
+                        "description": "User id."
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}
